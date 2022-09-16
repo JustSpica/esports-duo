@@ -5,6 +5,7 @@ import { Button } from 'components';
 
 import logo from '/logo.svg';
 
+import { GameBanner } from './components/GameBanner';
 import gamesMock from './gamesMock';
 
 export function Login() {
@@ -25,20 +26,12 @@ export function Login() {
       </h1>
       <div className="w-full grid grid-cols-6 gap-6 mt-16">
         {gamesMock.map((game) => (
-          <div
-            className="relative rounded-lg overflow-hidden cursor-pointer 
-            hover:scale-105 transition-transform"
-          >
-            <img src={game.image} alt={game.name} />
-            <div className="w-full p-4 pt-16 bg-fadeGameGradient absolute bottom-0">
-              <strong className="font-bold text-white block">
-                {game.name}
-              </strong>
-              <span className="text-zinc-300 text-sm block">
-                {game.adverts} anúncios
-              </span>
-            </div>
-          </div>
+          <GameBanner 
+            key={game.id}
+            adsCount={game.adverts} 
+            bannerUrl={game.image} 
+            game={game.name}
+          />
         ))}
       </div>
     </div>

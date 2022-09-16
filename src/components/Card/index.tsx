@@ -12,7 +12,7 @@ export interface AdCardProps {
   time: string;
 }
 
-export function AdCard({
+export function Card({
   availability,
   isAudioAvailable,
   game,

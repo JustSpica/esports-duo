@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import { MagnifyingGlassPlus } from 'phosphor-react';
 import classNames from 'classnames';
+import { MagnifyingGlassPlus } from 'phosphor-react';
+import * as DialogRadix from '@radix-ui/react-dialog';
 
-import { Avatar, Button } from 'components';
+import { AdForm, Avatar, Dialog } from 'components';
 
 import { useAuth } from 'hooks/useAuth';
 
@@ -39,12 +40,20 @@ export function Sidebar() {
           </NavLink>
         ))}
       </div>
-      <div className="w-full px-8 py-8 absolute right-0 bottom-0">
-        <Button className="w-full justify-center">
-          <MagnifyingGlassPlus size={24} />
-          Publicar anúncio
-        </Button>
-      </div>
+      <DialogRadix.Root>
+        <div className="w-full px-8 py-8 absolute right-0 bottom-0">
+          <DialogRadix.Trigger className="w-full px-4 py-3 flex items-center justify-center gap-2 bg-violet-500 rounded-md text-white hover:bg-violet-600 transition-colors">
+            <MagnifyingGlassPlus size={24} />
+            Publicar anúncio
+          </DialogRadix.Trigger>
+        </div>
+        <Dialog>
+          <DialogRadix.Title className='text-3xl font-black text-white'>
+            Publique seu anúncio
+          </DialogRadix.Title> 
+            <AdForm />
+        </Dialog>
+      </DialogRadix.Root>
     </div>
   );
 }

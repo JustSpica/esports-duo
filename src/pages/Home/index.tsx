@@ -1,4 +1,4 @@
-import { AdCard } from 'components';
+import { Card } from 'components';
 
 import { Default } from 'layout';
 
@@ -10,7 +10,7 @@ export function Home() {
       <h1 className='text-4xl font-bold'>Ultimos anúncios</h1>
       <div className="w-full mt-12 flex flex-wrap gap-8">
         {mock.map(card => (
-          <AdCard
+          <Card
             key={card.id}
             availability={card.availability}
             game={card.game}
