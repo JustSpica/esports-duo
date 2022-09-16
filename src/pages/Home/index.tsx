@@ -1,44 +1,25 @@
-import React from 'react';
-import { DiscordLogo } from 'phosphor-react';
+import { AdCard } from 'components';
 
-import { Button } from 'components';
+import { Default } from 'layout';
 
-import logo from 'assets/svg/logo.svg';
-
-import gamesMock from './gamesMock';
+import mock from './mock';
 
 export function Home() {
   return (
-    <div className="max-w-[1344px] mx-auto flex flex-col items-center relative">
-      <Button className='absolute top-8 right-0'>
-        <DiscordLogo size={20}/> Entrar com discord
-      </Button>
-      <img className="my-20" src={logo} alt="Esports" />
-      <h1 className="text-6xl text-white font-black">
-        Seu{" "}
-        <span className="text-transparent bg-arcoGradient bg-clip-text">
-          duo
-        </span>{" "}
-        está aqui
-      </h1>
-      <div className="w-full grid grid-cols-6 gap-6 mt-16">
-        {gamesMock.map((game) => (
-          <div
-            className="relative rounded-lg overflow-hidden cursor-pointer 
-            hover:scale-105 transition-transform"
-          >
-            <img src={game.image} alt={game.name} />
-            <div className="w-full p-4 pt-16 bg-fadeGameGradient absolute bottom-0">
-              <strong className="font-bold text-white block">
-                {game.name}
-              </strong>
-              <span className="text-zinc-300 text-sm block">
-                {game.adverts} anúncios
-              </span>
-            </div>
-          </div>
+    <Default>
+      <h1 className='text-4xl font-bold'>Ultimos anúncios</h1>
+      <div className="w-full mt-12 flex flex-wrap gap-8">
+        {mock.map(card => (
+          <AdCard
+            key={card.id}
+            availability={card.availability}
+            game={card.game}
+            name={card.name}
+            time={card.time}
+            isAudioAvailable={card.isAudioAvailable}
+          />
         ))}
       </div>
-    </div>
+    </Default>
   );
 }
