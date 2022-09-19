@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { MagnifyingGlassPlus } from 'phosphor-react';
 import * as DialogRadix from '@radix-ui/react-dialog';
 
-import { AdForm, Avatar, Dialog } from 'components';
+import { AdForm, Dialog } from 'components';
 
 import { useAuth } from 'hooks/useAuth';
 
@@ -17,7 +17,9 @@ export function Sidebar() {
   return (
     <div className="h-full px-8 py-8 bg-zinc-900 border-r border-r-zinc-800 relative">
       <header className="w-full flex space-x-4">
-        <Avatar image={imageURL} size="md" />
+        <div className='w-12 relative flex justify-center'>
+          <img className='rounded-full' src={imageURL} alt="avatar" />
+        </div>
         <div className="flex flex-col flex-1 justify-center">
           <span className="text-sm text-zinc-300">Bem vindo,</span>
           <strong>{data.username}</strong>

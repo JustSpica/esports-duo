@@ -4,21 +4,23 @@ import classNames from 'classnames';
 
 import { Button } from 'components';
 
+import { convertToWeekDays } from 'utils/convertToWeekDays';
+
 export interface AdCardProps {
-  availability: string;
-  game: string;
+  availability: string[];
   isAudioAvailable?: boolean;
   name: string;
-  time: string;
+  timeGameplay: number;
 }
 
 export function Card({
   availability,
   isAudioAvailable,
-  game,
   name,
-  time,
+  timeGameplay,
 }: AdCardProps) {
+  const weekDays = convertToWeekDays(availability).map(day => day.initial);
+
   return (
     <div className="w-full max-w-xs pt-1 bg-arcoGradient rounded-lg">
       <div className="w-full py-6 px-8 bg-[#2A2634] rounded-md space-y-4">
@@ -28,15 +30,11 @@ export function Card({
         </div>
         <div>
           <span className="block text-zinc-300">Tempo de jogo</span>
-          <strong className="text-white">{time}</strong>
+          <strong className="text-white">{timeGameplay} anos</strong>
         </div>
         <div>
           <span className="block text-zinc-300">Disponibilidade</span>
-          <strong className="text-white">{availability}</strong>
-        </div>
-        <div>
-          <span className="block text-zinc-300">Jogo</span>
-          <strong className="text-white">{game}</strong>
+          <strong className="text-white">{weekDays.join('-')}</strong>
         </div>
         <div>
           <span className="block text-zinc-300">Chamda de áudio ?</span>

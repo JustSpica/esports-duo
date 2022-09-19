@@ -1,5 +1,4 @@
 export * from './AdForm';
-export * from './Avatar';
 export * from './Card';
 export * from './Button';
 export * from './Dialog';
