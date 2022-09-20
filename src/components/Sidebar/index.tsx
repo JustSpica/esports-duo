@@ -53,7 +53,7 @@ export function Sidebar() {
           <DialogRadix.Title className='text-3xl font-black text-white'>
             Publique seu anúncio
           </DialogRadix.Title> 
-            <AdForm />
+          <AdForm />
         </Dialog>
       </DialogRadix.Root>
     </div>
