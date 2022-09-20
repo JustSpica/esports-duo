@@ -8,13 +8,15 @@ import { convertToWeekDays } from 'utils/convertToWeekDays';
 
 export interface AdCardProps {
   availability: string[];
-  isAudioAvailable?: boolean;
+  game?: string;
+  isAudioAvailable: boolean;
   name: string;
   timeGameplay: number;
 }
 
 export function Card({
   availability,
+  game,
   isAudioAvailable,
   name,
   timeGameplay,
@@ -27,6 +29,10 @@ export function Card({
         <div>
           <span className="block text-zinc-300">Nome</span>
           <strong className="text-white">{name}</strong>
+        </div>
+        <div>
+          <span className="block text-zinc-300">Game</span>
+          <strong className="text-white">{game}</strong>
         </div>
         <div>
           <span className="block text-zinc-300">Tempo de jogo</span>

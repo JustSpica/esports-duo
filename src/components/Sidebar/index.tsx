@@ -8,8 +8,11 @@ import { AdForm, Dialog } from 'components';
 import { useAuth } from 'hooks/useAuth';
 
 import mock from './mock';
+import { useState } from 'react';
 
 export function Sidebar() {
+  const [hasDialogOpen, setHasDialogOpen] = useState(false);
+
   const { data } = useAuth();
 
   const imageURL = `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}`;
@@ -42,7 +45,7 @@ export function Sidebar() {
           </NavLink>
         ))}
       </div>
-      <DialogRadix.Root>
+      <DialogRadix.Root open={hasDialogOpen} onOpenChange={setHasDialogOpen}>
         <div className="w-full px-8 py-8 absolute right-0 bottom-0">
           <DialogRadix.Trigger className="w-full px-4 py-3 flex items-center justify-center gap-2 bg-violet-500 rounded-md text-white hover:bg-violet-600 transition-colors">
             <MagnifyingGlassPlus size={24} />
@@ -53,7 +56,7 @@ export function Sidebar() {
           <DialogRadix.Title className='text-3xl font-black text-white'>
             Publique seu anúncio
           </DialogRadix.Title> 
-          <AdForm />
+          <AdForm onSubmitClose={() => setHasDialogOpen(false)}/>
         </Dialog>
       </DialogRadix.Root>
     </div>

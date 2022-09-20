@@ -2,42 +2,26 @@ import { useEffect, useState } from 'react';
 
 import { Card } from 'components';
 
+import { useGames } from 'hooks/useGames';
+import { useAd } from 'hooks/useAd';
+
 import { Default } from 'layout';
 
-import { findAllLastAds } from 'services/ads';
-
-export interface DataRequest { 
-  id: string;
-  gameId: string;
-  name: string;
-  yearsPlaying: number;
-  discord: string;
-  weekDays: string[]
-  useVoiceChannel: boolean;
-  createdAt: string;
-}
-
-
 export function Home() {
-  const [data, setData] = useState<DataRequest[]>([]);
+  const { games } = useGames();
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await findAllLastAds<DataRequest[]>();
-
-      setData(data);
-    })()
-  }, [])
+  const { ads } = useAd();
 
   return (
     <Default>
       <h1 className='text-4xl font-bold'>Ultimos anúncios</h1>
       <div className="w-full mt-12 flex flex-wrap gap-8">
-        {data.map(ad => (
+        {ads.map(ad => (
           <Card
             key={ad.id}
             name={ad.name}
             availability={ad.weekDays}
+            game={games.find(game => game.id === ad.gameId)?.title}
             timeGameplay={ad.yearsPlaying}
             isAudioAvailable={ad.useVoiceChannel}
           />

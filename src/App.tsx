@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { AuthProvider } from 'contexts/AuthContext';
 import { GamesProvider } from 'contexts/GamesContext';
+import { AdProvider } from 'contexts/AdContext';
 
 import { Routes } from 'routes';
 
@@ -13,7 +14,9 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <GamesProvider>
-          <Routes />
+          <AdProvider>
+            <Routes />
+          </AdProvider>
         </GamesProvider>
       </AuthProvider>
     </BrowserRouter>
