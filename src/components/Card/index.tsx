@@ -37,7 +37,7 @@ export function Card({
           <strong className="text-white">{weekDays.join('-')}</strong>
         </div>
         <div>
-          <span className="block text-zinc-300">Chamda de áudio ?</span>
+          <span className="block text-zinc-300">Chamada de áudio ?</span>
           <strong
             className={classNames('text-red-500', {
               'text-emerald-400': isAudioAvailable,

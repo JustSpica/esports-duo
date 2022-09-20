@@ -5,7 +5,7 @@ export interface ButtonDateProps extends ButtonHTMLAttributes<HTMLButtonElement>
   children: React.ReactNode;
 }
 
-export function ButtonDate({ children, ...props }: ButtonDateProps) {
+export function ButtonDate({ children, onClick, ...props}: ButtonDateProps) {
   const [hasSelected, setHasSelected] = useState(false);
 
   function handleChangeButtonState() {
@@ -20,11 +20,9 @@ export function ButtonDate({ children, ...props }: ButtonDateProps) {
           '!bg-violet-500 shadow-md shadow-violet-500/50': hasSelected,
         }
       )}
-      onClick={() => {
+      onClick={event => {
         handleChangeButtonState();
-        if (props.onClick) {
-          props.onClick
-        }
+        onClick && onClick(event);
       }}
       {...props}
     >
