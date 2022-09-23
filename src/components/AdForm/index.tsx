@@ -52,7 +52,7 @@ export function AdForm({ onSubmitClose }: AdFormProps) {
       discord,
       name,
       useVoiceChannel,
-      weekDays,
+      weekDays: weekDays.sort(),
       yearsPlaying: Number(yearsPlaying),
     }
 
