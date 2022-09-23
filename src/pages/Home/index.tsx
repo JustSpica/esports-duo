@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import { Card } from 'components';
 
 import { useGames } from 'hooks/useGames';
@@ -21,6 +19,7 @@ export function Home() {
             key={ad.id}
             name={ad.name}
             availability={ad.weekDays}
+            discord={ad.discord}
             game={games.find(game => game.id === ad.gameId)?.title}
             timeGameplay={ad.yearsPlaying}
             isAudioAvailable={ad.useVoiceChannel}

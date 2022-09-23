@@ -7,18 +7,28 @@ module.exports = {
     },
     extend: {
       keyframes: {
-        show: {
+        showOverlay: {
           '0%': { opacity: 0 },
           '100%': { opacity: 1 },
         },
-        dialog: {
+        hiddenOverlay: {
+          '0%': { opacity: 1 },
+          '100%': { opacity: 0 },
+        },
+        showDialog: {
           '0%': { opacity: 0, transform: 'translate(-50%, -48%) scale(.96)' },
           '100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
-        }
+        },
+        hiddenDialog: {
+          '0%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+          '100%': { opacity: 0, transform: 'translate(-50%, -48%) scale(.96)' },
+        },
       },
       animation: {
-        'show': 'show 150ms cubic-bezier(0.16, 1, 0.3, 1)',
-        'dialog': 'dialog 150ms cubic-bezier(0.16, 1, 0.3, 1)'
+        's-overlay': 'showOverlay 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        'h-overlay': 'hiddenOverlay 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        's-dialog': 'showDialog 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        'h-dialog': 'hiddenDialog 150ms cubic-bezier(0.16, 1, 0.3, 1)',
       },
       backgroundImage: {
         background: "url('/background.png')",
