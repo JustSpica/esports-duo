@@ -1,11 +1,12 @@
-import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { GameController, CheckCircle, X } from 'phosphor-react';
+import React from 'react';
 import classNames from 'classnames';
+import { GameController } from 'phosphor-react';
 
-
-import { Button, Dialog } from 'components';
+import { Button} from 'components';
 
 import { convertToWeekDays } from 'utils/convertToWeekDays';
+
+import { DialogSuccess } from './components/DialogSuccess';
 
 import labelTextMock from './labelTextMock';
 
@@ -48,33 +49,12 @@ export function Card(props: AdCardProps) {
             {props.isAudioAvailable ? "Sim" : "Não"}
           </strong>
         </div>
-        <DialogPrimitive.Root>
-          <DialogPrimitive.Trigger asChild>
-            <Button className="w-full justify-center">
-              <GameController />
-              Conectar
-            </Button>
-          </DialogPrimitive.Trigger>
-          <Dialog>
-            <div className="min-w-[320px] relative text-center">
-              <DialogPrimitive.Close>
-                <X
-                  className="absolute -top-1 right-0 text-zinc-400"
-                  size={24}
-                />
-              </DialogPrimitive.Close>
-              <CheckCircle className="mx-auto text-emerald-400" size={96} />
-              <strong className="block mt-6 text-2xl">Let's play</strong>
-              <span className="block text-zinc-400">
-                Agora é só começar a jogar!
-              </span>
-              <p className="block mt-6 font-semibold">Adicione no Discord</p>
-              <span className="w-full mt-2 py-3 block rounded bg-zinc-900">
-                {props.discord}
-              </span>
-            </div>
-          </Dialog>
-        </DialogPrimitive.Root>
+        <DialogSuccess discord={props.discord}>
+          <Button className="w-full justify-center">
+            <GameController />
+            Conectar
+          </Button>
+        </DialogSuccess>
       </div>
     </div>
   );

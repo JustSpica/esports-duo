@@ -23,12 +23,22 @@ module.exports = {
           '0%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
           '100%': { opacity: 0, transform: 'translate(-50%, -48%) scale(.96)' },
         },
+        toastShow: {
+          '0%': { opacity: 0, transform: 'translateY(12rem) scale(.96)' },
+          '100%': { opacity: 1, transform: 'translateY(8rem) scale(1)' },
+        },
+        toastHidden: {
+          '0%': { opacity: 1, transform: 'translateY(8rem) scale(1)' },
+          '100%': { opacity: 0, transform: 'translateY(12rem) scale(.96)' },
+        }
       },
       animation: {
         's-overlay': 'showOverlay 150ms cubic-bezier(0.16, 1, 0.3, 1)',
         'h-overlay': 'hiddenOverlay 150ms cubic-bezier(0.16, 1, 0.3, 1)',
         's-dialog': 'showDialog 150ms cubic-bezier(0.16, 1, 0.3, 1)',
         'h-dialog': 'hiddenDialog 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        's-toast': 'toastShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        'h-toast': 'toastHidden 150ms cubic-bezier(0.16, 1, 0.3, 1)'
       },
       backgroundImage: {
         background: "url('/background.png')",
