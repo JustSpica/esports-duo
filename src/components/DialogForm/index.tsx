@@ -1,11 +1,10 @@
 import { FormEvent, useState } from 'react';
-import { GameController } from 'phosphor-react';
 import * as DialogRadix from '@radix-ui/react-dialog';
+import { GameController } from 'phosphor-react';
 
 import { Button, Checkbox, Input } from 'components';
 import { Select, Option } from 'components/Select';
 
-import { GamesRequest } from 'contexts/GamesContext';
 import { AdsRequest } from 'contexts/AdContext';
 
 import { useAd } from 'hooks/useAd';
@@ -15,115 +14,106 @@ import { createAd } from 'services/ads';
 
 import { ButtonDate } from './components/ButtonDate';
 
-import weekDaysMock from './weekDaysMock';
+import weekDaysList from './weekDays';
 
-export interface AdFormProps {
-  onSubmitClose: () => void;
+export interface DialogForm {
+  onFinished: () => void;
 }
 
-export function AdForm({ onSubmitClose }: AdFormProps) {
-  const [game, setGame] = useState({} as GamesRequest);
-  const [name, setName] = useState('');
-  const [discord, setDiscord] = useState('');
-  const [yearsPlaying, setYearsPlaying] = useState('');
+export function DialogForm({ onFinished }: DialogForm) {
   const [weekDays, setWeekDays] = useState<string[]>([]);
-  const [useVoiceChannel, setUseVoiceChannel] = useState(false);
-
-  const { setAds } = useAd();
 
   const { games } = useGames();
+  const { setAds } = useAd();
 
-  function handleAddWeekDays(value: string) {
+  function handleWeekDay(value: string) {
     const days = [...weekDays];
 
-    if (days.find((day) => day === value)) {
-      const newWeekDays = days.filter((day) => day !== value);
+    if (days.find(day => day === value)) {
+      const newWeekDays = days.filter(day => day !== value);
 
       return setWeekDays(newWeekDays);
     }
 
     return setWeekDays((prevState) => [...prevState, value]);
-  };
+  }
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
+    
+    const form = new FormData(event.target as HTMLFormElement);
+    const data = Object.fromEntries(form);
+
+    console.log(data);
 
     const body = {
-      discord,
-      name,
-      useVoiceChannel,
+      discord: data.discord,
+      name: data.name,
+      useVoiceChannel: data.useVoiceChannel ? true : false,
       weekDays: weekDays.sort(),
-      yearsPlaying: Number(yearsPlaying),
+      yearsPlaying: Number(data.yearsPlaying),
     }
 
-    const { data } = await createAd<AdsRequest[]>(game.id, body);
+    try {
+      const response = await createAd<AdsRequest[]>(String(data.game), body);
 
-    setAds(data);
-    onSubmitClose();
+      setAds(response.data);
+      onFinished();
+    } catch(error) {
+      console.log(error);
+      onFinished();
+    }
   }
-
+  
   return (
-    <form className="w-[480px] mt-8">
+    <form className="w-[480px] mt-8" onSubmit={handleSubmit}>
       <main className="space-y-4">
         <Select
+          name="game"
           data={games}
           label="Qual o game ?"
           placeholder="Selecione o game que deseja jogar"
           render={(game) => (
-            <Option key={game.id} onSelect={() => setGame(game)}>
+            <Option key={game.id} value={game.id} label={game.title}>
               {game.title}
             </Option>
           )}
-          value={game.title}
         />
         <Input
           name="name"
           label="Seu nome (ou nickname)"
           placeholder="Como te chamam dentro do game ?"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
         />
         <div className="grid grid-cols-2 gap-6">
           <Input
             name="yearsPlaying"
             label="Joga há quantos anos ?"
             placeholder="Tudo bem ser ZERO"
-            value={yearsPlaying}
-            onChange={(event) => setYearsPlaying(event.target.value)}
           />
           <Input
             name="discord"
             label="Qual seu Discord ?"
             placeholder="Usuário#0000"
-            value={discord}
-            onChange={(event) => setDiscord(event.target.value)}
           />
         </div>
         <div className="space-y-2">
           <label className="block font-semibold">Quando costuma jogar?</label>
           <div className="space-x-1">
-            {weekDaysMock.map((day) => (
-              <ButtonDate
-                type="button"
-                title={day.title}
-                onClick={() => handleAddWeekDays(day.value)}
+            {weekDaysList.map(({ label, title, value }) => (
+              <ButtonDate 
+                type="button" 
+                title={title} 
+                onClick={() => handleWeekDay(value)}
               >
-                {day.label}
+                {label}
               </ButtonDate>
             ))}
           </div>
         </div>
-        <div className='space-y-2'>
-          <Checkbox 
-            label='Costumo me conectar ao chat de voz' 
-            onCheckedChange={checked => {
-              if(checked) {
-                return setUseVoiceChannel(true);
-              }
-
-              return setUseVoiceChannel(false);
-            }}
-            checked={useVoiceChannel}
+        <div className="space-y-2">
+          <Checkbox
+            name="useVoiceChannel"
+            label="Costumo me conectar ao chat de voz"
           />
         </div>
       </main>
@@ -134,7 +124,7 @@ export function AdForm({ onSubmitClose }: AdFormProps) {
         >
           Cancelar
         </DialogRadix.Close>
-        <Button type="submit" onClick={handleSubmit}>
+        <Button type="submit">
           <GameController />
           Encontrar Duo
         </Button>

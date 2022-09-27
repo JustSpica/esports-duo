@@ -1,4 +1,4 @@
-export * from './AdForm';
+export * from './DialogForm';
 export * from './Card';
 export * from './Checkbox';
 export * from './Button';

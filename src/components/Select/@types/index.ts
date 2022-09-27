@@ -1,16 +1,17 @@
 export interface TriggerProps {
   placeholder?: string;
-  value?: string | number;
 }
 
 export interface RootProps<T> extends TriggerProps {
   data: T[];
+  name?: string;
   render: (item: T) => React.ReactNode;
 }
 
 export interface OptionsProps {
   children: React.ReactNode;
-  onSelect?: () => void;
+  value: string;
+  label: string;
 }
 
 export interface SelectProps<T> extends RootProps<T> {

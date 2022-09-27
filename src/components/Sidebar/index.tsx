@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { MagnifyingGlassPlus } from 'phosphor-react';
 import * as DialogRadix from '@radix-ui/react-dialog';
 
-import { AdForm, Dialog } from 'components';
+import { DialogForm, Dialog } from 'components';
 
 import { useAuth } from 'hooks/useAuth';
 
@@ -56,7 +56,7 @@ export function Sidebar() {
           <DialogRadix.Title className='text-3xl font-black text-white'>
             Publique seu anúncio
           </DialogRadix.Title> 
-          <AdForm onSubmitClose={() => setHasDialogOpen(false)}/>
+          <DialogForm onFinished={() => setHasDialogOpen(false)}/>
         </Dialog>
       </DialogRadix.Root>
     </div>

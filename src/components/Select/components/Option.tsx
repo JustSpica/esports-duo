@@ -2,8 +2,8 @@ import { useSelect } from 'components/Select';
 
 import { OptionsProps } from '../@types';
 
-export function Option({ children, onSelect }: OptionsProps) {
-  const { hasOpen, setHasOpen } = useSelect();
+export function Option({ children, label, value }: OptionsProps) {
+  const { hasOpen, setHasOpen, setValue, setLabel } = useSelect();
 
   return (
     <button 
@@ -11,7 +11,8 @@ export function Option({ children, onSelect }: OptionsProps) {
       className='w-full py-3 px-4 block text-left text-sm bg-zinc-900 hover:bg-zinc-800 transition-colors'
       onClick={() => {
         setHasOpen(!hasOpen)
-        onSelect && onSelect();
+        setValue(value);
+        setLabel(label);
       }}
     >
       {children}
