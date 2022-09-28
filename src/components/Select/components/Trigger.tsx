@@ -5,7 +5,7 @@ import { useSelect } from 'components/Select';
 
 import { TriggerProps } from '../@types';
 
-export function Trigger({ placeholder }: TriggerProps) {
+export function Trigger({ error, placeholder }: TriggerProps) {
   const { hasOpen, setHasOpen, label } = useSelect();
   
   return (
@@ -13,7 +13,8 @@ export function Trigger({ placeholder }: TriggerProps) {
       type="button"
       className={classNames(
         "w-full py-3 px-4 flex justify-between rounded bg-zinc-900 text-sm text-zinc-500", {
-          '!text-white': label
+          '!text-white': label,
+          '!text-red-500 shadow-error': error,
         }
       )}
       onClick={() => setHasOpen(!hasOpen)}

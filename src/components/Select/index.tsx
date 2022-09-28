@@ -13,6 +13,9 @@ export function Select<T>(props: SelectProps<T>) {
           <label className="block font-semibold">{props.label}</label>
         )}
         <Root {...props} />
+        {props.error && (
+          <span className='text-sm text-red-500'>{props.error}</span>
+        )}
       </div>
     </SelectProvider>
   )

@@ -30,7 +30,7 @@ export function DisplayName({ children }: DisplayNameProps) {
       </span>
       <ToastPrimitive.Root 
         className='px-4 py-2 bg-zinc-900 shadow-lg rounded-lg shadow-black/40 translate-y-32 
-        state-open:animate-s-toast state-closed:animate-h-toast' 
+        radix-state-open:animate-s-toast radix-state-closed:animate-h-toast' 
         open={open} 
         onOpenChange={setOpen}
       >

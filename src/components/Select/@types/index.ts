@@ -1,5 +1,6 @@
 export interface TriggerProps {
   placeholder?: string;
+  error?: string;
 }
 
 export interface RootProps<T> extends TriggerProps {

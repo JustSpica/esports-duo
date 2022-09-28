@@ -44,13 +44,14 @@ module.exports = {
         background: "url('/background.png')",
         arcoGradient: "linear-gradient(90deg, #9572FC 10%, #43E7AD 40%, #E1D55D 100%)",
         fadeGameGradient: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 67.08%)"
+      },
+      boxShadow: {
+        'error': '0 0 0 2px rgb(220, 38, 38, 0.5)',
       }
     },
   },
   plugins: [
-    require('tailwindcss-radix')({
-      variantPrefix: false,
-    }),
+    require('tailwindcss-radix')(),
     require('tailwind-scrollbar'),
   ]
 }

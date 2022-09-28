@@ -14,6 +14,8 @@ import { createAd } from 'services/ads';
 
 import { ButtonDate } from './components/ButtonDate';
 
+import { validationForm, ErrorsProps } from './validation';
+
 import weekDaysList from './weekDays';
 
 export interface DialogForm {
@@ -22,6 +24,7 @@ export interface DialogForm {
 
 export function DialogForm({ onFinished }: DialogForm) {
   const [weekDays, setWeekDays] = useState<string[]>([]);
+  const [errors, setErrors] = useState({} as ErrorsProps);
 
   const { games } = useGames();
   const { setAds } = useAd();
@@ -44,15 +47,19 @@ export function DialogForm({ onFinished }: DialogForm) {
     const form = new FormData(event.target as HTMLFormElement);
     const data = Object.fromEntries(form);
 
-    console.log(data);
-
     const body = {
       discord: data.discord,
       name: data.name,
       useVoiceChannel: data.useVoiceChannel ? true : false,
       weekDays: weekDays.sort(),
-      yearsPlaying: Number(data.yearsPlaying),
+      yearsPlaying: data.yearsPlaying && Number(data.yearsPlaying),
     }
+    
+    const errors = await validationForm({ ...body, game: data.game });
+
+    if(errors) {
+      return setErrors(errors);
+    };
 
     try {
       const response = await createAd<AdsRequest[]>(String(data.game), body);
@@ -78,22 +85,29 @@ export function DialogForm({ onFinished }: DialogForm) {
               {game.title}
             </Option>
           )}
+          error={errors.game}
         />
         <Input
           name="name"
           label="Seu nome (ou nickname)"
           placeholder="Como te chamam dentro do game ?"
+          error={errors.name}
+          onFocus={() => Object.keys(errors).length > 0 && setErrors({})}
         />
         <div className="grid grid-cols-2 gap-6">
           <Input
             name="yearsPlaying"
             label="Joga há quantos anos ?"
             placeholder="Tudo bem ser ZERO"
+            error={errors.yearsPlaying}
+            onFocus={() => Object.keys(errors).length > 0 && setErrors({})}
           />
           <Input
             name="discord"
             label="Qual seu Discord ?"
             placeholder="Usuário#0000"
+            error={errors.discord}
+            onFocus={() => Object.keys(errors).length > 0 && setErrors({})}
           />
         </div>
         <div className="space-y-2">
@@ -103,12 +117,19 @@ export function DialogForm({ onFinished }: DialogForm) {
               <ButtonDate 
                 type="button" 
                 title={title} 
-                onClick={() => handleWeekDay(value)}
+                onClick={() => {
+                  if(Object.keys(errors).length > 0) {
+                    setErrors({});
+                  }
+
+                  handleWeekDay(value);
+                }}
               >
                 {label}
               </ButtonDate>
             ))}
           </div>
+          <span className='text-red-500 text-sm'>{errors.weekDays}</span>
         </div>
         <div className="space-y-2">
           <Checkbox
