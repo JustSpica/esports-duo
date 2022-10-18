@@ -31,6 +31,7 @@ export function Sidebar() {
       <div className="mt-8 space-y-2">
         {mock.map((item) => (
           <NavLink
+            key={item.text}
             className={({ isActive }) =>
               classNames(
                 "w-64 px-2 py-3 flex items-center space-x-2 rounded-lg cursor-pointer hover:bg-zinc-800 transition-colors", {

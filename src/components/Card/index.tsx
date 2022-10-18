@@ -28,7 +28,7 @@ export function Card(props: AdCardProps) {
     <div className="w-full max-w-xs pt-1 bg-arcoGradient rounded-lg">
       <div className="w-full py-6 px-8 bg-[#2A2634] rounded-md space-y-4">
         {labelTextMock.map(({ label, value }) => (
-          <div>
+          <div key={label}>
             <span className="block text-zinc-300">{label}</span>
             <strong className="text-white">{props[value]}</strong>
           </div>
